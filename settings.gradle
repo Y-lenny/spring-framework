@@ -1,21 +1,20 @@
-/*
 pluginManagement {
 	repositories {
 		maven {
-			url "https://dl.bintray.com/kotlin/kotlin-eap-1.1"
+			// 从maven私服获取依赖jar
+			url "http://10.10.11.140:8081/nexus/content/groups/dafycredit"
 		}
 		gradlePluginPortal()
 	}
 }
-*/
 
 // Workaround for https://github.com/Kotlin/dokka/issues/146
-pluginManagement {
+/*pluginManagement {
 	repositories {
 		jcenter()
 		gradlePluginPortal()
 	}
-}
+}*/
 
 include "spring-aop"
 include "spring-aspects"
