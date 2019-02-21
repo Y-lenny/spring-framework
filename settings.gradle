@@ -1,11 +1,11 @@
 pluginManagement {
-	repositories {
-		maven {
-			// 从maven私服获取依赖jar
-			url "http://10.10.11.140:8081/nexus/content/groups/dafycredit"
-		}
-		gradlePluginPortal()
-	}
+    repositories {
+        maven {
+            // 从maven私服获取依赖jar
+            url "http://10.10.11.197:8081/nexus/content/groups/public/"
+        }
+        gradlePluginPortal()
+    }
 }
 
 // Workaround for https://github.com/Kotlin/dokka/issues/146
@@ -41,9 +41,9 @@ include "spring-framework-bom"
 
 // Exposes gradle buildSrc for IDE support
 include "buildSrc"
-rootProject.children.find{ it.name == "buildSrc" }.name = "spring-build-src"
+rootProject.children.find { it.name == "buildSrc" }.name = "spring-build-src"
 
 rootProject.name = 'spring'
-rootProject.children.each {project ->
-	project.buildFileName = "${project.name}.gradle"
+rootProject.children.each { project ->
+    project.buildFileName = "${project.name}.gradle"
 }
