@@ -1,4 +1,4 @@
-pluginManagement {
+/*pluginManagement {
     repositories {
         maven {
             // 从maven私服获取依赖jar
@@ -6,15 +6,15 @@ pluginManagement {
         }
         gradlePluginPortal()
     }
-}
+}*/
 
 // Workaround for https://github.com/Kotlin/dokka/issues/146
-/*pluginManagement {
+pluginManagement {
 	repositories {
 		jcenter()
 		gradlePluginPortal()
 	}
-}*/
+}
 
 include "spring-aop"
 include "spring-aspects"
