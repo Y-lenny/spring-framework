@@ -179,6 +179,13 @@ public abstract class AbstractBeanDefinitionReader implements EnvironmentCapable
 	}
 
 
+	/**
+	 *  上面虽然有两个分支，不过第二个分支很快通过解析路径转换为 Resource 以后也会进到这里
+	 *
+	 * @param resources the resource descriptors
+	 * @return
+	 * @throws BeanDefinitionStoreException
+	 */
 	@Override
 	public int loadBeanDefinitions(Resource... resources) throws BeanDefinitionStoreException {
 		Assert.notNull(resources, "Resource array must not be null");

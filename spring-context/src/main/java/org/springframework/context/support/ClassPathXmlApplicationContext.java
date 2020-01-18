@@ -126,6 +126,9 @@ public class ClassPathXmlApplicationContext extends AbstractXmlApplicationContex
 	/**
 	 * Create a new ClassPathXmlApplicationContext with the given parent,
 	 * loading the definitions from the given XML files.
+	 *
+	 * 创建一个新的ClassPathXmlApplicationContext与父类ApplicationContext进行关联，并且装载从XML配置文件解析出来的定义信息。
+	 *
 	 * @param configLocations array of resource locations
 	 * @param refresh whether to automatically refresh the context,
 	 * loading all bean definitions and creating all singletons.
@@ -139,8 +142,14 @@ public class ClassPathXmlApplicationContext extends AbstractXmlApplicationContex
 			throws BeansException {
 
 		super(parent);
+		/**
+		 * 根据提供的路径，处理成配置文件数组(以分号、逗号、空格、tab、换行符分割)
+		 */
 		setConfigLocations(configLocations);
 		if (refresh) {
+			/**
+			 * 核心方法：？
+			 */
 			refresh();
 		}
 	}

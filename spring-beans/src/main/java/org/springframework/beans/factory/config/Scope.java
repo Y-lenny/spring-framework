@@ -20,6 +20,15 @@ import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.lang.Nullable;
 
 /**
+ *
+ * 在Spring IOC容器当中区分不同都作用域：singleton,prototype,request,session,application(后3种是web容器相关联的)
+ *
+ * 主要讲下 singleton与prototype之间区别：
+ *
+ * 1. singleton在容器中，只被实例化一次，而prototype在容器中，调用几次，就被实例化几次
+ * 2. 在AppplicationContext容器中，singleton在applicaitonContext.xml加载时就被预先实例化，而prototype必须在调用时才实例化
+ * 参考链接：https://www.cnblogs.com/wangjiming/p/11656374.html，https://www.cnblogs.com/cocoxu1992/p/10576651.html
+ *
  * Strategy interface used by a {@link ConfigurableBeanFactory},
  * representing a target scope to hold bean instances in.
  * This allows for extending the BeanFactory's standard scopes
