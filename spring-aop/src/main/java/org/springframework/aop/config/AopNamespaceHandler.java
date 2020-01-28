@@ -63,6 +63,10 @@ public class AopNamespaceHandler extends NamespaceHandlerSupport {
 	public void init() {
 		// In 2.0 XSD as well as in 2.1 XSD.
 		registerBeanDefinitionParser("config", new ConfigBeanDefinitionParser());
+		/**
+		 * 开启 @AspectJ 的两种方式，一个是 <aop:aspectj-autoproxy/>，一个是 @EnableAspectJAutoProxy，它们的原理是一样的，都是通过注册一个 bean 来实现的。
+		 * 解析 <aop:aspectj-autoproxy/> 需要用到{@link AopNamespaceHandler}
+		 */
 		registerBeanDefinitionParser("aspectj-autoproxy", new AspectJAutoProxyBeanDefinitionParser());
 		registerBeanDefinitionDecorator("scoped-proxy", new ScopedProxyBeanDefinitionDecorator());
 

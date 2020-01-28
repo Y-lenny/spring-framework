@@ -58,6 +58,8 @@ import org.springframework.web.servlet.HandlerMapping;
 import org.springframework.web.util.UrlPathHelper;
 
 /**
+ *
+ * 拓展{@link AbstractMessageConverterMethodArgumentResolver}类可以处理返回值写到指定的response中通过{@link HttpMessageConverter}s.
  * Extends {@link AbstractMessageConverterMethodArgumentResolver} with the ability to handle
  * method return values by writing to the response with {@link HttpMessageConverter}s.
  *
@@ -256,6 +258,9 @@ public abstract class AbstractMessageConverterMethodProcessor extends AbstractMe
 
 		if (selectedMediaType != null) {
 			selectedMediaType = selectedMediaType.removeQualityValue();
+			/**
+			 * 遍历消息转换器
+			 */
 			for (HttpMessageConverter<?> converter : this.messageConverters) {
 				GenericHttpMessageConverter genericConverter =
 						(converter instanceof GenericHttpMessageConverter ? (GenericHttpMessageConverter<?>) converter : null);

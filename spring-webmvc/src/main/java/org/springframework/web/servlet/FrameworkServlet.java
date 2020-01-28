@@ -23,6 +23,8 @@ import java.util.List;
 import java.util.concurrent.Callable;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
@@ -838,6 +840,9 @@ public abstract class FrameworkServlet extends HttpServletBean implements Applic
 
 	/**
 	 * Override the parent class implementation in order to intercept PATCH requests.
+	 *
+	 * 重写父类的${@link javax.servlet.http.HttpServlet#service(ServletRequest, ServletResponse)}的service方法是为了拦截PATCH请求
+	 *
 	 */
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response)
@@ -949,6 +954,9 @@ public abstract class FrameworkServlet extends HttpServletBean implements Applic
 	}
 
 	/**
+	 *
+	 *
+	 *
 	 * Process this request, publishing an event regardless of the outcome.
 	 * <p>The actual event handling is performed by the abstract
 	 * {@link #doService} template method.
@@ -1096,6 +1104,9 @@ public abstract class FrameworkServlet extends HttpServletBean implements Applic
 
 
 	/**
+	 *
+	 * 模板方法：子类必须实现这个方法去处理请求
+	 *
 	 * Subclasses must implement this method to do the work of request handling,
 	 * receiving a centralized callback for GET, POST, PUT and DELETE.
 	 * <p>The contract is essentially the same as that for the commonly overridden

@@ -348,10 +348,16 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 			return bean;
 		}
 
+		/**
+		 * 返回匹配当前 bean 的所有的 advisor、advice、interceptor
+		 */
 		// Create proxy if we have advice.
 		Object[] specificInterceptors = getAdvicesAndAdvisorsForBean(bean.getClass(), beanName, null);
 		if (specificInterceptors != DO_NOT_PROXY) {
 			this.advisedBeans.put(cacheKey, Boolean.TRUE);
+			/**
+			 * 创建代理...创建代理...创建代理...
+			 */
 			Object proxy = createProxy(
 					bean.getClass(), beanName, specificInterceptors, new SingletonTargetSource(bean));
 			this.proxyTypes.put(cacheKey, proxy.getClass());
@@ -431,6 +437,10 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 	}
 
 	/**
+	 * 注意看这个方法的几个参数，
+	 *   第三个参数携带了所有的 advisors
+	 *   第四个参数 targetSource 携带了真实实现的信息
+	 *
 	 * Create an AOP proxy for the given bean.
 	 * @param beanClass the class of the bean
 	 * @param beanName the name of the bean
@@ -448,18 +458,35 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 			AutoProxyUtils.exposeTargetClass((ConfigurableListableBeanFactory) this.beanFactory, beanName, beanClass);
 		}
 
+		/**
+		 * 创建 ProxyFactory 实例
+		 */
 		ProxyFactory proxyFactory = new ProxyFactory();
 		proxyFactory.copyFrom(this);
 
+		/**
+		 * 在schema-based 的配置方式中，我们介绍过，如果希望使用 CGLIB 来代理接口，可以配置proxy-target-class="true",这样不管有没有接口，都使用 CGLIB 来生成代理：
+		 * <aop:config proxy-target-class="true">......</aop:config>
+		 */
 		if (!proxyFactory.isProxyTargetClass()) {
 			if (shouldProxyTargetClass(beanClass, beanName)) {
 				proxyFactory.setProxyTargetClass(true);
 			}
 			else {
+				/**
+				 *
+				 * 点进去稍微看一下代码就知道了，主要就两句：
+				 *   1. 有接口的，调用一次或多次：proxyFactory.addInterface(ifc);
+				 * 	 2. 没有接口的，调用：proxyFactory.setProxyTargetClass(true);
+				 */
 				evaluateProxyInterfaces(beanClass, proxyFactory);
 			}
 		}
 
+		/**
+		 * 这个方法会返回匹配了当前 bean 的 advisors 数组
+		 * 注意：如果 specificInterceptors 中有 advice 和 interceptor，它们也会被包装成 advisor，进去看下源码就清楚了
+		 */
 		Advisor[] advisors = buildAdvisors(beanName, specificInterceptors);
 		proxyFactory.addAdvisors(advisors);
 		proxyFactory.setTargetSource(targetSource);

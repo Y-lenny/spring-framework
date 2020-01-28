@@ -491,6 +491,8 @@ public class DispatcherServlet extends FrameworkServlet {
 	}
 
 	/**
+	 *
+	 * 初始化重要对象给servlet使用。有些方法可能被子类重写，为了强化更好的对象
 	 * Initialize the strategy objects that this servlet uses.
 	 * <p>May be overridden in subclasses in order to initialize further strategy objects.
 	 */
@@ -881,6 +883,9 @@ public class DispatcherServlet extends FrameworkServlet {
 
 
 	/**
+	 *
+	 * 解析request请求属性并快照，同时设置属性传递给实际进行转发的方法{@link #doDispatch}
+	 *
 	 * Exposes the DispatcherServlet-specific request attributes and delegates to {@link #doDispatch}
 	 * for the actual dispatching.
 	 */
@@ -935,6 +940,9 @@ public class DispatcherServlet extends FrameworkServlet {
 	}
 
 	/**
+	 *
+	 * 处理实际的转发操作到对应的handler处理器
+	 *
 	 * Process the actual dispatching to the handler.
 	 * <p>The handler will be obtained by applying the servlet's HandlerMappings in order.
 	 * The HandlerAdapter will be obtained by querying the servlet's installed HandlerAdapters
@@ -983,10 +991,16 @@ public class DispatcherServlet extends FrameworkServlet {
 					}
 				}
 
+				/**
+				 * 前置拦截器
+				 */
 				if (!mappedHandler.applyPreHandle(processedRequest, response)) {
 					return;
 				}
 
+				/**
+				 * 实际触发handler的执行
+				 */
 				// Actually invoke the handler.
 				mv = ha.handle(processedRequest, response, mappedHandler.getHandler());
 
@@ -995,6 +1009,9 @@ public class DispatcherServlet extends FrameworkServlet {
 				}
 
 				applyDefaultViewName(processedRequest, mv);
+				/**
+				 * 后置拦截器
+				 */
 				mappedHandler.applyPostHandle(processedRequest, response, mv);
 			}
 			catch (Exception ex) {

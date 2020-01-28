@@ -837,6 +837,9 @@ public class RequestMappingHandlerAdapter extends AbstractHandlerMethodAdapter
 
 		ServletWebRequest webRequest = new ServletWebRequest(request, response);
 		try {
+			/**
+			 * 绑定数据
+			 */
 			WebDataBinderFactory binderFactory = getDataBinderFactory(handlerMethod);
 			ModelFactory modelFactory = getModelFactory(handlerMethod, binderFactory);
 
@@ -873,7 +876,9 @@ public class RequestMappingHandlerAdapter extends AbstractHandlerMethodAdapter
 				}
 				invocableMethod = invocableMethod.wrapConcurrentResult(result);
 			}
-
+			/**
+			 * 执行我们的业务代码
+			 */
 			invocableMethod.invokeAndHandle(webRequest, mavContainer);
 			if (asyncManager.isConcurrentHandlingStarted()) {
 				return null;

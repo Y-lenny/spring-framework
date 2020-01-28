@@ -495,7 +495,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 
 		try {
 			/**
-			 * 让 InstantiationAwareBeanPostProcessor 在这一步有机会返回代理，
+			 * 让 {@link InstantiationAwareBeanPostProcessor} 在这一步有机会返回代理，
 			 * 在 《Spring AOP 源码分析》那篇文章中有解释，这里先跳过
 			 */
 			// Give BeanPostProcessors a chance to return a proxy instead of the target bean instance.
@@ -511,7 +511,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 
 		try {
 			/**
-			 * 重头戏，创建 bean
+			 * 重头戏，创建 bean；BeanPostProcessor 是在这里面实例化后才能得到执行
 			 */
 			Object beanInstance = doCreateBean(beanName, mbdToUse, args);
 			if (logger.isDebugEnabled()) {
