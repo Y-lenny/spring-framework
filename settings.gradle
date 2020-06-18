@@ -1,16 +1,8 @@
-/*pluginManagement {
-    repositories {
-        maven {
-            // 从maven私服获取依赖jar
-            url "http://10.10.11.197:8081/nexus/content/groups/public/"
-        }
-        gradlePluginPortal()
-    }
-}*/
-
 // Workaround for https://github.com/Kotlin/dokka/issues/146
 pluginManagement {
 	repositories {
+		mavenLocal()
+		maven { url "https://repo.spring.io/plugins-release" }
 		jcenter()
 		gradlePluginPortal()
 	}
